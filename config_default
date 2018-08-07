@@ -1,0 +1,15 @@
+[General]
+Start_Counter = 10
+Mode = Monitoring
+
+[Sensor]
+GPIO_Sensor_Pin = 7
+
+[Camera]
+RPI_Camera = True
+
+[Notification]
+AWS_Topic_ARN = arn:aws:sns:us-east-1:323458187916:Motion_Alert
+Message = Motion Detected
+Notification_Limit = 1
+Notification_Sleep = 30
