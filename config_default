@@ -8,9 +8,14 @@ GPIO_Sensor_Pin = 7
 [Camera]
 RPI_Camera = True
 
-[Notification]
+[AWS_Notification]
+AWS_Notification = ON
 AWS_Topic_ARN = arn:aws:sns:us-east-1:
-Subject = Motion Detected
-Message = Motion Detected
+
+[Notification]
+Start_Subject = Camera Started
+Start_Message = Camera Started
+Motion_Subject = Motion Detected
+Motion_Message = Motion Detected
 Notification_Limit = 1
 Notification_Timeout = 30
