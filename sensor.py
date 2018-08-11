@@ -1,32 +1,21 @@
 import RPi.GPIO as GPIO
 import time
-import boto3
 import configparser
-
-# AWS
-client = boto3.client('sns')
-
-def send_notification(Topic, Message):
-    print ("Notification Sent")
-    response = client.publish(TopicArn=Topic,
-                              Message=Message,
-                              MessageStructure='string'
-               )
-
+from aws_notification import send_notification
 
 def main():
     print ("Reading configuration file")
-    with open("config") as file:
-        config_file = file.read()
-    config = configparser.ConfigParser(allow_mno_value=True)
-    config.read(config_file)
+    config = configparser.ConfigParser()
+    config.read('config', encoding='utf-8')
     Start_Counter = int(config['General']['Start_Counter'])
     GPIO_Sensor_Pin = int(config['Sensor']['GPIO_Sensor_Pin'])
     AWS_Topic_ARN = config['Notification']['AWS_Topic_ARN']
+    Subject = config['Notification']['Subject']
     Message = config['Notification']['Message']
+    Timeout = int(config['Notification']['Notification_Timeout'])
 
     print ("Waiting for sensor to start")
-    time.sleep(Start_Counterm)
+    time.sleep(Start_Counter)
     print ("Sensor Started")
 
     # Setting GPIO Pins
@@ -36,13 +25,13 @@ def main():
     c = 0
 
     while True:
-        motion = GPIO.input(gpin)
+        motion = GPIO.input(GPIO_Sensor_Pin)
         if motion == 1:
             print ("Motion Detected!")
             if c < 1:
                 print ("Sending Notification")
-                #send_notification(AWS_Topic_ARN, Message)
+                #send_notification(AWS_Topic_ARN, Subject, Message)
                 c = c + 1
-            time.sleep(10)
+            time.sleep(Timeout)
 
 main()
