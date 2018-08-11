@@ -1,12 +1,11 @@
-
+""" Module that sends notification to AWS"""
 import boto3
+CLIENT = boto3.client('sns')
 
-client = boto3.client('sns')
-
-def aws_send_notification(AWS_Topic_ARN, Subject, Message):
-    print ("Notification Sent")
-    response = client.publish(TopicArn=AWS_Topic_ARN,
-                              Subject=Subject,
-                              Message=Message,
-                              MessageStructure='string'
-               )
+def aws_send_notification(aws_topic_arn, subject, message):
+    """Sends Notification"""
+    print("Notification Sent")
+    response = CLIENT.publish(TopicArn=aws_topic_arn,
+                              Subject=subject,
+                              Message=message,
+                              MessageStructure='string')

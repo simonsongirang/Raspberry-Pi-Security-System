@@ -1,44 +1,48 @@
-import RPi.GPIO as GPIO
+"""" Detects motion using sensor and sends notification accordingly"""
 import time
 import configparser
+import RPi.GPIO as GPIO
 from aws_notification import aws_send_notification
 
+
 def main():
-    print ("Reading configuration file")
+    """ Main function handles"""
+    print("Reading configuration file")
     config = configparser.ConfigParser()
     config.read('config', encoding='utf-8')
-    Start_Counter = int(config['General']['Start_Counter'])
-    GPIO_Sensor_Pin = int(config['Sensor']['GPIO_Sensor_Pin'])
-    AWS_Notification = config['AWS_Notification']['AWS_Notification']
-    AWS_Topic_ARN = config['AWS_Notification']['AWS_Topic_ARN']
-    Subject = config['Notification']['Motion_Subject']
-    Message = config['Notification']['Motion_Message']
-    Start_Subject = config['Notification']['Start_Subject']
-    Start_Message = config['Notification']['Start_Message']
-    Timeout = int(config['Notification']['Notification_Timeout'])
-    Limit = int(config['Notification']['Notification_Limit'])
+    start_counter = int(config['General']['Start_Counter'])
+    gpio_sensor_pin = int(config['Sensor']['GPIO_Sensor_Pin'])
+    aws_notification = config['AWS_Notification']['AWS_Notification']
+    aws_topic_arn = config['AWS_Notification']['AWS_Topic_ARN']
+    subject = config['Notification']['Motion_Subject']
+    message = config['Notification']['Motion_Message']
+    start_subject = config['Notification']['Start_Subject']
+    start_message = config['Notification']['Start_Message']
+    timeout = int(config['Notification']['Notification_Timeout'])
+    limit = int(config['Notification']['Notification_Limit'])
 
-    print ("Waiting for sensor to start")
-    time.sleep(Start_Counter)
-    print ("Sensor Started")
-    if AWS_Notification == 'ON':
-        aws_send_notification(AWS_Topic_ARN, Start_Subject, Start_Message)
+    print("Waiting for sensor to start")
+    time.sleep(start_counter)
+    print("Sensor Started")
+    if aws_notification == 'ON':
+        aws_send_notification(aws_topic_arn, start_subject, start_message)
 
     # Setting GPIO Pins
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(GPIO_Sensor_Pin, GPIO.IN)
-    Motion_Counter = 0
+    GPIO.setup(gpio_sensor_pin, GPIO.IN)
+    motion_counter = 0
 
     while True:
-        Motion = GPIO.input(GPIO_Sensor_Pin)
-        if Motion == 1:
-            print ("Motion Detected!")
-            if Motion_Counter < Limit:
-                print ("Sending Notification")
-                if AWS_Notification == 'ON':
-                    aws_send_notification(AWS_Topic_ARN, Subject, Message)
-                Motion_Counter = c + 1
-            time.sleep(Timeout)
+        motion = GPIO.input(gpio_sensor_pin)
+        if motion == 1:
+            print("Motion Detected!")
+            if motion_counter < limit:
+                print("Sending Notification")
+                if aws_notification == 'ON':
+                    aws_send_notification(aws_topic_arn, subject, message)
+                motion_counter = motion_counter + 1
+            time.sleep(timeout)
 
-main()
+if __name__ == '__main__':
+    main()
