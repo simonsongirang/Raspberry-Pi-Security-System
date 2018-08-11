@@ -29,6 +29,7 @@ def main():
     logging.info('Starting countdown......')
     for i in range(start_counter, -1, -1):
         logging.info('%s', i)
+        print(str(i))
         time.sleep(1)
     print("Sensor Started")
     if aws_notification == 'ON':
