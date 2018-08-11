@@ -4,6 +4,7 @@ import configparser
 import logging
 import RPi.GPIO as GPIO
 from aws_notification import aws_send_notification
+from rpi_cam import snapshot
 
 def main():
     """ Main function handles motion detection"""
@@ -45,9 +46,12 @@ def main():
         if motion == 1:
             print("Motion Detected!")
             logging.info('Motion detected')
+
             if motion_counter < limit:
                 print("Sending Notification")
                 logging.info('Sending Notification...')
+                logging.info('Taking Snapshot...')
+                snapshot()
                 if aws_notification == 'ON':
                     aws_send_notification(aws_topic_arn, subject, message)
                 motion_counter = motion_counter + 1
