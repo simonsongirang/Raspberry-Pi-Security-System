@@ -3,11 +3,6 @@ import time
 import configparser
 from aws_notification import aws_send_notification
 
-
-
-
-
-
 def main():
     print ("Reading configuration file")
     config = configparser.ConfigParser()
@@ -29,16 +24,17 @@ def main():
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(GPIO_Sensor_Pin, GPIO.IN)
-    c = 0
+    Motion_Counter = 0
 
     while True:
         motion = GPIO.input(GPIO_Sensor_Pin)
         if motion == 1:
             print ("Motion Detected!")
-            if c < Limit:
+            if Motion_Counter < Limit:
                 print ("Sending Notification")
-                aws_send_notification(AWS_Topic_ARN, Subject, Message)
-                c = c + 1
+                if AWS_Notification == 'ON':
+                    aws_send_notification(AWS_Topic_ARN, Subject, Message)
+                Motion_Counter = c + 1
             time.sleep(Timeout)
 
 main()
