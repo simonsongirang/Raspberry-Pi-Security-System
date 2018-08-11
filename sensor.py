@@ -5,9 +5,8 @@ import logging
 import RPi.GPIO as GPIO
 from aws_notification import aws_send_notification
 
-
 def main():
-    """ Main function handles"""
+    """ Main function handles motion detection"""
     logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
     print("Reading configuration file")
     logging.info('Application started')
