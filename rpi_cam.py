@@ -1,4 +1,4 @@
-from picamera import picamera
+from picamera import PiCamera
 from datetime import datetime
 
 def get_current_time():
@@ -14,4 +14,6 @@ def gen_file_name():
 def snapshot():
     """ Takes Snapshot"""
     camera = PiCamera()
-    camera.capture(gen_file_name)
+    camera.capture(gen_file_name())
+
+snapshot()
