@@ -4,6 +4,7 @@ import configparser
 import logging
 import RPi.GPIO as GPIO
 from aws_notification import aws_send_notification
+from slack_integration import send_snapshot_feed
 from rpi_cam import snapshot
 
 def main():
@@ -24,6 +25,9 @@ def main():
     start_message = config['Notification']['Start_Message']
     timeout = int(config['Notification']['Notification_Timeout'])
     limit = int(config['Notification']['Notification_Limit'])
+    slack_notification = config['Slack_Notification']['Slack_Notification']
+    slack_token = config['Slack_Notification']['Token']
+    slack_channel = config['Slack_Notification']['Channel']
 
     print("Waiting for sensor to start")
     logging.info('Starting countdown......')
@@ -51,9 +55,11 @@ def main():
                 print("Sending Notification")
                 logging.info('Sending Notification...')
                 logging.info('Taking Snapshot...')
-                snapshot()
+                filepath, filename = snapshot()
                 if aws_notification == 'ON':
                     aws_send_notification(aws_topic_arn, subject, message)
+                if slack_notification == 'ON':
+                    send_snapshot_feed(slack_token, filepath, filename, slack_channel)
                 motion_counter = motion_counter + 1
             time.sleep(timeout)
 
