@@ -1,1 +1,5 @@
 config
+app.log
+*.jpg
+*.pyc
+__pycache__
