@@ -12,6 +12,11 @@ RPI_Camera = True
 AWS_Notification = ON
 AWS_Topic_ARN = arn:aws:sns:us-east-1:323458187916:Motion_Alert
 
+[Slack_Notification]
+Slack_Notification = ON
+Token=
+Channel=#security-feed
+
 [Notification]
 Start_Subject = Camera Started
 Start_Message = Camera Started
