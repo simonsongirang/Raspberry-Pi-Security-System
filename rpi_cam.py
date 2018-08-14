@@ -1,8 +1,8 @@
 """ Module for PiCamera"""
 # ToDo Migrate time to new file
 from datetime import datetime
+import logging
 from picamera import picamera
-
 
 def get_current_time():
     """ Returns current time in string """
@@ -17,7 +17,14 @@ def gen_file_name():
 
 def snapshot():
     """ Takes Snapshot"""
-    camera = PiCamera()
-    filepath, filename = gen_file_name()
-    camera.capture(filepath)
-    return filepath, filename
+    try:
+        logging.info('Taking snapshot using RPI Camera')
+        camera = PiCamera()
+        filepath, filename = gen_file_name()
+        logging.info('Generated file path: %s', filepath)
+        logging.info('Generated file name: %s', filename)
+        camera.capture(filepath)
+        return filepath, filename
+    except PiCameraError as error:
+        logging.info('Unexpected PI Camera error')
+        logging.info(error)

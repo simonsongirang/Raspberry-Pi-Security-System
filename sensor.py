@@ -8,10 +8,10 @@ from slack_notification import send_snapshot_feed, send_slack_message
 from rpi_cam import snapshot
 
 def main():
+    """ Main function handles motion detection"""
     try:
-        """ Main function handles motion detection"""
-        logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-        print("Reading configuration file")
+        logging.basicConfig(filename='app.log', level=logging.INFO,
+                            format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
         logging.info('Application started')
         logging.info('Reading configuration file')
         config = configparser.ConfigParser()
@@ -53,11 +53,8 @@ def main():
         while True:
             motion = GPIO.input(gpio_sensor_pin)
             if motion == 1:
-                print("Motion Detected!")
                 logging.info('Motion detected')
-
                 if motion_counter < limit:
-                    print("Sending Notification")
                     logging.info('Sending Notification...')
                     logging.info('Taking Snapshot...')
                     filepath, filename = snapshot()
