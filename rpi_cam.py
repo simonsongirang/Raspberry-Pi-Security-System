@@ -2,7 +2,7 @@
 # ToDo Migrate time to new file
 from datetime import datetime
 import logging
-from picamera import picamera
+from picamera import PiCamera
 
 def get_current_time():
     """ Returns current time in string """
