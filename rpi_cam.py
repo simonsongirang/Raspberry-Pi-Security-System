@@ -11,7 +11,7 @@ def get_current_time():
 def gen_file_name():
     """ Generates filename based on current time"""
     time = get_current_time()
-    filename = time + ".jpg"
+    filename = "snapshot-" + time + ".jpg"
     filepath = "./photo/" + filename
     return filepath, filename
 

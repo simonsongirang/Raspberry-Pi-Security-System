@@ -1,5 +1,5 @@
 config
 app.log
-*.jpg
+snapshot*.jpg
 *.pyc
 __pycache__
