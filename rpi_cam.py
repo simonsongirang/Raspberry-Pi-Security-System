@@ -24,8 +24,10 @@ def snapshot():
         logging.info('Generated file path: %s', filepath)
         logging.info('Generated file name: %s', filename)
         camera.capture(filepath)
+        camera.close()
         return filepath, filename
     except IOError as error:
         logging.info('Unexpected PI Camera error')
         logging.info(error)
+        camera.close()
         return '0', '0'
