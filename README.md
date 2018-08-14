@@ -1,4 +1,4 @@
 # Home-Security
 
-![Alt text](/diagrams/Current Integrations.jpg)
-![Alt text](/diagrams/Design Diagram.jpg)
+![Current Integrations](diagrams/Current Integrations.jpg)
+![Design Diagram](diagrams/Design Diagram.jpg)
