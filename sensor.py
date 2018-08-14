@@ -60,7 +60,7 @@ def main():
                     filepath, filename = snapshot()
                     if aws_notification == 'ON':
                         aws_send_notification(aws_topic_arn, subject, message)
-                    if slack_notification == 'ON' & filepath != '0' & filename != '0':
+                    if slack_notification == 'ON' and filepath != '0' and filename != '0':
                         send_snapshot_feed(slack_token, filepath, filename, slack_channel)
                     motion_counter = motion_counter + 1
                 time.sleep(timeout)
