@@ -25,7 +25,7 @@ def snapshot():
         logging.info('Generated file name: %s', filename)
         camera.capture(filepath)
         return filepath, filename
-    except PiCameraError as error:
+    except IOError: as error:
         logging.info('Unexpected PI Camera error')
         logging.info(error)
         return '0', '0'
