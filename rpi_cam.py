@@ -28,3 +28,4 @@ def snapshot():
     except PiCameraError as error:
         logging.info('Unexpected PI Camera error')
         logging.info(error)
+        return '0', '0'
