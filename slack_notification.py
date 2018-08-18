@@ -38,10 +38,12 @@ def send_slack_message(token, message, channelname):
         payload = {
             "text": message,
             "token":token,
-            "channels":[channelname],
+            "channel":channelname,
+            "as_user":True,
         }
         response = requests.post("https://slack.com/api/chat.postMessage", params=payload)
         logging.info('Posted a message to the slack channel')
+        logging.info(response.content)
     except requests.exceptions.RequestException as exception:
         logging.info('Error while sending HTTP request')
         logging.info(exception)
