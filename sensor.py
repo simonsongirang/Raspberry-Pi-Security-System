@@ -43,6 +43,8 @@ def main():
         if slack_notification == 'ON':
             logging.info('Sending Start Notification to Slack')
             send_slack_message(slack_token, start_message, slack_channel)
+            filepath, filename = snapshot()
+            send_snapshot_feed(slack_token, filepath, filename, slack_channel)
 
         # Setting GPIO Pins
         GPIO.setwarnings(False)
