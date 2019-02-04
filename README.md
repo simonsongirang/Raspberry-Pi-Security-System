@@ -1,4 +1,4 @@
-# Raspberry Pi Security Camera
+# Raspberry Pi Security System
 
 ## Supported Integration
 ![alt text](https://github.com/simonsongirang/Home-Security/blob/master/diagrams/Supported%20Integrations.jpg)
