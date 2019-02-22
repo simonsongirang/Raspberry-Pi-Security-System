@@ -16,9 +16,10 @@ git clone https://github.com/simonsongirang/Raspberry-Pi-Security-System.git
 cd Raspberry-Pi-Security-System-master
 # Install required dependencies
 pip3 install -r requirements.txt
-# Adding configuration. See Configuration instruction
-vim config_default
 cp config_default config
+# Adding configuration. See Configuration instruction
+vim config
+# Start
 python3 sensor.py
 ```
 
