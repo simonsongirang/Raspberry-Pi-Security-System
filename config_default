@@ -10,7 +10,7 @@ RPI_Camera = True
 
 [AWS_Notification]
 AWS_Notification = ON
-AWS_Topic_ARN = arn:aws:sns:us-east-1:323458187916:Motion_Alert
+AWS_Topic_ARN = arn:aws:sns:us-east-1:123456789101:Motion_Alert
 
 [Slack_Notification]
 Slack_Notification = ON
